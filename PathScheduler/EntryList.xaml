@@ -33,12 +33,24 @@
                     Background="{StaticResource ButtonBackground}"
                         Foreground="{StaticResource ButtonContent}"/>
         </Grid>
-        <ListView x:Name="listView" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
+        <ListView x:Name="listViewEntries" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Nazwa" Width="200" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="X" Width="100" DisplayMemberBinding="{Binding CoordX}" />
+                    <GridViewColumn Header="Y" Width="100" DisplayMemberBinding="{Binding CoordY}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <Grid Grid.Column="1" Grid.Row="5" Margin="10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="addButton" Content="Dodaj punkt" Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch"
+                Background="{StaticResource ButtonBackground}"
+                Foreground="{StaticResource ButtonContent}" Click="AddButton_Click"/>
+        </Grid>
     </Grid>
 </Window>
