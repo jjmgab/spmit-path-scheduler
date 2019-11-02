@@ -1,18 +1,6 @@
 ﻿using PathScheduler.Helpers;
 using PathScheduler.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PathScheduler
 {
@@ -21,29 +9,48 @@ namespace PathScheduler
     /// </summary>
     public partial class EntryList : Window
     {
-        PointDataSource _dataSource;
+        /// <summary>
+        /// Reference to the data source.
+        /// </summary>
+        PointDataSource<MapPoint> _dataSource;
 
-        public EntryList(PointDataSource dataSource)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="dataSource">Reference to the data source.</param>
+        public EntryList(PointDataSource<MapPoint> dataSource)
         {
             InitializeComponent();
 
             this._dataSource = dataSource;
-            listViewEntries.ItemsSource = this._dataSource.MapPoints;
+            listViewEntries.ItemsSource = this._dataSource.Points;
         }
 
+        /// <summary>
+        /// On acceptButton click. Hides the window, without destroying it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
         }
 
+        /// <summary>
+        /// On addButton click. Adds a new point.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            this._dataSource.MapPoints.Add(new MapPoint
+            this._dataSource.AddPoint(new MapPoint
             {
-                Name = "Punkt dodany ręcznie",
+                Name = $"Punkt {this._dataSource.Points.Count + 1} (dodany ręcznie)",
                 CoordX = 0,
                 CoordY = 0,
             });
+
+            // rerender the view
             listViewEntries.Items.Refresh();
         }
     }

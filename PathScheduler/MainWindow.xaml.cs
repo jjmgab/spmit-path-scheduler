@@ -1,18 +1,7 @@
 ﻿using PathScheduler.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PathScheduler.Models;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PathScheduler
 {
@@ -21,10 +10,19 @@ namespace PathScheduler
     /// </summary>
     public partial class MainWindow : Window
     {
-        private PointDataSource _dataSource;
+        /// <summary>
+        /// Point data source.
+        /// </summary>
+        private PointDataSource<MapPoint> _dataSource;
 
+        /// <summary>
+        /// Handler to the EntryList window.
+        /// </summary>
         private EntryList _entryListWindow;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -33,17 +31,33 @@ namespace PathScheduler
             _entryListWindow = new EntryList(_dataSource);
         }
 
+        /// <summary>
+        /// On entryListButton click. Opens the EntryList window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EntryListButton_Click(object sender, RoutedEventArgs e)
         {
             this._entryListWindow.ShowDialog();
         }
 
+        /// <summary>
+        /// On closeButton click. Closes the window (and the application).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this._entryListWindow.Close();
             this.Close();
         }
 
+        /// <summary>
+        /// On upper dockPanel left mouse button press.
+        /// Allows dragging the window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -52,6 +66,11 @@ namespace PathScheduler
             }
         }
 
+        /// <summary>
+        /// On maximizeButton click. Maximizes the window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == System.Windows.WindowState.Normal)
