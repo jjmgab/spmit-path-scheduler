@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PathScheduler.Models
 {
-    class MapPoint
+    public class MapPoint
     {
         public string Name { get; set; }
         public int CoordX { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PathScheduler.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,22 +21,26 @@ namespace PathScheduler
     /// </summary>
     public partial class MainWindow : Window
     {
-        private EntryList EntryListWindow;
+        private PointDataSource _dataSource;
+
+        private EntryList _entryListWindow;
 
         public MainWindow()
         {
             InitializeComponent();
-            EntryListWindow = new EntryList();
+
+            _dataSource = new MockupDataGen(30, -100, -100, 100, 100);
+            _entryListWindow = new EntryList(_dataSource);
         }
 
         private void EntryListButton_Click(object sender, RoutedEventArgs e)
         {
-            this.EntryListWindow.ShowDialog();
+            this._entryListWindow.ShowDialog();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.EntryListWindow.Close();
+            this._entryListWindow.Close();
             this.Close();
         }
 
