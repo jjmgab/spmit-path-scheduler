@@ -40,7 +40,8 @@ namespace PathScheduler.Helpers
         /// </summary>
         /// <param name="point"></param>
         public void AddPoint(T point) {
-            this.AddNewPoint(point);
+            this._pointList.Add(point);
+            this.OnPointAdd(point);
             this.GenerateDistanceMatrix();
         }
 
@@ -48,9 +49,7 @@ namespace PathScheduler.Helpers
         /// Adds a new point to the point list.
         /// </summary>
         /// <param name="point"></param>
-        protected virtual void AddNewPoint(T point) {
-            this._pointList.Add(point);
-        }
+        protected virtual void OnPointAdd(T point) { }
 
         /// <summary>
         /// Generates distance matrix from the point list.
