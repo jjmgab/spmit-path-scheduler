@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PathScheduler"
         mc:Ignorable="d"
         Title="EntryList" Height="450" Width="800"
-        ShowInTaskbar="False" Topmost="True"
+        ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen" WindowStyle="None"
         Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" ResizeMode="NoResize">
     <Grid>
