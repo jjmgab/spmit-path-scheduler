@@ -1,5 +1,6 @@
 ﻿using PathScheduler.Models;
 using System;
+using System.Linq;
 
 namespace PathScheduler.Helpers
 {
@@ -27,16 +28,43 @@ namespace PathScheduler.Helpers
                 throw new ArgumentOutOfRangeException();
             }
 
+            GeneratePointList(pointNumber, minX, minY, maxX, maxY);
+        }
+
+        /// <summary>
+        /// Generates a list of points.
+        /// </summary>
+        /// <param name="pointNumber">Target number of points.</param>
+        /// <param name="minX">Minimal X-coordinate value.</param>
+        /// <param name="minY">Minimal Y-coordinate value.</param>
+        /// <param name="maxX">Maximal X-coordinate value.</param>
+        /// <param name="maxY">Maximal Y-coordinate value.</param>
+        private void GeneratePointList(int pointNumber, int minX, int minY, int maxX, int maxY)
+        {
             Random rand = new Random();
 
             for (int i = 0; i < pointNumber; i++)
             {
-                _pointList.Add(new MapPoint
+                MapPoint newPoint = new MapPoint
                 {
                     Name = $"Punkt {i + 1}",
                     CoordX = minX + rand.Next(maxX - minX),
                     CoordY = minY + rand.Next(maxY - minY),
-                });
+                };
+
+                // check for duplicate coordinates
+                MapPoint nameDuplCoords = (from p in this._pointList
+                                           where p.CoordX == newPoint.CoordX && p.CoordY == newPoint.CoordY
+                                           select p).FirstOrDefault();
+
+                // repeat current iteration if a duplicate was found
+                if (nameDuplCoords != null)
+                {
+                    i--;
+                    continue;
+                }
+
+                _pointList.Add(newPoint);
             }
         }
 

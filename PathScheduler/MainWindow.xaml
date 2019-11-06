@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PathScheduler"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
-        Background="{StaticResource WindowBackground}">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="{StaticResource WindowBackground}" WindowStyle="None">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="45" LastChildFill="False" Background="{StaticResource WindowHeader}" MouseDown="DockPanel_MouseDown">
             <Button x:Name="closeButton" Content="X" Width="25" DockPanel.Dock="Right"
@@ -19,7 +19,7 @@
                 BorderThickness="0" Background="{x:Null}" FontWeight="ExtraBlack"
                 Foreground="{StaticResource WindowTitle}" FontSize="18" Click="MaximizeButton_Click"/>
         </DockPanel>
-        <Grid Width="794" DockPanel.Dock="Bottom">
+        <Grid DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -31,19 +31,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="2" Grid.Row="3" Margin="10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Button x:Name="entryListButton" Content="Lista punktów" Grid.Column="0"
-                        Grid.Row="1" VerticalAlignment="Stretch"
-                        Click="EntryListButton_Click"
-                        Background="{StaticResource ButtonBackground}"
-                        Foreground="{StaticResource ButtonContent}"
-                        BorderThickness="1" BorderBrush="{x:Null}"/>
-            </Grid>
+            <Button x:Name="entryListButton" Content="Lista punktów"
+                    Click="EntryListButton_Click"
+                    Background="{StaticResource ButtonBackground}"
+                    Foreground="{StaticResource ButtonContent}"
+                    BorderThickness="1" BorderBrush="{x:Null}" Width="245" Margin="10,0" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" MinHeight="40"/>
         </Grid>
     </DockPanel>
 </Window>

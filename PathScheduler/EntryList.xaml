@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PathScheduler"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="EntryList" Height="450" Width="800"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen" WindowStyle="None"
-        Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" ResizeMode="NoResize">
+        Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" ResizeMode="NoResize" IsVisibleChanged="Window_IsVisibleChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -23,16 +24,33 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="2" Grid.Row="5" Margin="10,0">
+
+        <Grid Grid.Column="0" Grid.Row="0" Margin="10,0,11,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="acceptButton" Content="OK" Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" Click="AcceptButton_Click"
-                    Background="{StaticResource ButtonBackground}"
-                        Foreground="{StaticResource ButtonContent}"/>
+            <TextBox x:Name="textBoxName" Grid.Row="1" Text="" TextWrapping="Wrap" />
         </Grid>
+        <Grid Grid.Column="1" Grid.Row="0" Margin="10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <xctk:IntegerUpDown Grid.Row="1" Name="upDownX" Value="0" DefaultValue="0" ClipValueToMinMax="True" Minimum="-500" Maximum="500" />
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="0" Margin="11,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <xctk:IntegerUpDown Grid.Row="1" Name="upDownY" Value="0" DefaultValue="0" ClipValueToMinMax="True" Minimum="-500" Maximum="500" />
+        </Grid>
+
+
         <ListView x:Name="listViewEntries" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
             <ListView.View>
                 <GridView>
@@ -42,15 +60,29 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Grid Grid.Column="1" Grid.Row="5" Margin="10,0">
+
+        <Grid Grid.Column="2" Margin="11,0,10,0" Grid.Row="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="addButton" Content="Dodaj punkt" Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch"
+            <Button x:Name="addButton" Content="Dodaj punkt" Grid.Column="0" Grid.Row="1"
+                    VerticalAlignment="Stretch" Click="AddButton_Click"
                 Background="{StaticResource ButtonBackground}"
-                Foreground="{StaticResource ButtonContent}" Click="AddButton_Click"/>
+                Foreground="{StaticResource ButtonContent}" />
         </Grid>
+        <Grid Grid.Row="5" Margin="10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="acceptButton" Content="Zamknij" Grid.Column="0" Grid.Row="1"
+                    VerticalAlignment="Stretch" Click="AcceptButton_Click"
+                    Background="{StaticResource ButtonBackground}"
+                        Foreground="{StaticResource ButtonContent}"/>
+        </Grid>
+
     </Grid>
 </Window>

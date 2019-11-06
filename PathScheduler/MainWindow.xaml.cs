@@ -28,7 +28,6 @@ namespace PathScheduler
             InitializeComponent();
 
             _dataSource = new MockupDataGen(30, -100, -100, 100, 100);
-            _entryListWindow = new EntryList(_dataSource);
         }
 
         /// <summary>
@@ -38,7 +37,13 @@ namespace PathScheduler
         /// <param name="e"></param>
         private void EntryListButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_entryListWindow == null)
+            {
+                _entryListWindow = new EntryList(_dataSource);
+            }
+            this.IsEnabled = false;
             this._entryListWindow.ShowDialog();
+            this.IsEnabled = true;
         }
 
         /// <summary>
@@ -48,7 +53,10 @@ namespace PathScheduler
         /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this._entryListWindow.Close();
+            if (this._entryListWindow != null)
+            {
+                this._entryListWindow.Close();
+            }
             this.Close();
         }
 
