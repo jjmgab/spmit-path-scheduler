@@ -9,7 +9,7 @@ namespace PathScheduler.Models
     public class MapPoint
     {
         public string Name { get; set; }
-        public int CoordX { get; set; }
-        public int CoordY { get; set; }
+        public double CoordX { get; set; }
+        public double CoordY { get; set; }
     }
 }

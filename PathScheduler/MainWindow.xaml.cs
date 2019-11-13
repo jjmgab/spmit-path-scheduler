@@ -19,6 +19,7 @@ namespace PathScheduler
         /// Handler to the EntryList window.
         /// </summary>
         private EntryList _entryListWindow;
+        private MapView _mapViewWindow;
 
         /// <summary>
         /// Constructor.
@@ -27,7 +28,7 @@ namespace PathScheduler
         {
             InitializeComponent();
 
-            _dataSource = new MockupDataGen(30, -100, -100, 100, 100);
+            _dataSource = new MockupDataGen(30, 50, 15, 54, 23);
         }
 
         /// <summary>
@@ -39,10 +40,30 @@ namespace PathScheduler
         {
             if (_entryListWindow == null)
             {
-                _entryListWindow = new EntryList(_dataSource);
+                if (_mapViewWindow == null)
+                {
+                    _mapViewWindow = new MapView(_dataSource);
+                }
+                _entryListWindow = new EntryList(_dataSource, _mapViewWindow);
             }
             this.IsEnabled = false;
             this._entryListWindow.ShowDialog();
+            this.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// On mapListButton click. Opens the Map window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mapButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_mapViewWindow == null)
+            {
+                _mapViewWindow = new MapView(_dataSource);
+            }
+            this.IsEnabled = false;
+            this._mapViewWindow.ShowDialog();
             this.IsEnabled = true;
         }
 

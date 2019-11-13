@@ -45,11 +45,12 @@ namespace PathScheduler.Helpers
 
             for (int i = 0; i < pointNumber; i++)
             {
+                
                 MapPoint newPoint = new MapPoint
                 {
                     Name = $"Punkt {i + 1}",
-                    CoordX = minX + rand.Next(maxX - minX),
-                    CoordY = minY + rand.Next(maxY - minY),
+                    CoordX = Math.Round((minX + rand.NextDouble() * (maxX - minX)), 6),
+                    CoordY = Math.Round((minY + rand.NextDouble() * (maxY - minY)), 6),
                 };
 
                 // check for duplicate coordinates

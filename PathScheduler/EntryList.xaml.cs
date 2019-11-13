@@ -15,15 +15,17 @@ namespace PathScheduler
         /// Reference to the data source.
         /// </summary>
         PointDataSource<MapPoint> _dataSource;
+        MapView _map;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="dataSource">Reference to the data source.</param>
-        public EntryList(PointDataSource<MapPoint> dataSource)
+        public EntryList(PointDataSource<MapPoint> dataSource, MapView map)
         {
             InitializeComponent();
 
+            this._map = map;
             this._dataSource = dataSource;
             this.listViewEntries.ItemsSource = this._dataSource.Points;
         }
@@ -63,6 +65,7 @@ namespace PathScheduler
                 return;
             }
 
+            this._map.AddPin(point.CoordX, point.CoordY);
             this._dataSource.AddPoint(point);
 
             // rerender the view

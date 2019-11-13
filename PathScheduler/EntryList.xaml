@@ -31,7 +31,12 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="textBoxName" Grid.Row="1" Text="" TextWrapping="Wrap" />
+            <TextBox Style="{StaticResource placeHolder}"
+                     Tag="Nazwa punktu" 
+                     x:Name="textBoxName"
+                     Grid.Row="1"
+                     Text=""
+                     TextWrapping="Wrap"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0" Margin="10,0">
             <Grid.RowDefinitions>
@@ -39,6 +44,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <TextBlock Text="Długość geograficzna"></TextBlock>
             <xctk:IntegerUpDown Grid.Row="1" Name="upDownX" Value="0" DefaultValue="0" ClipValueToMinMax="True" Minimum="-500" Maximum="500" />
         </Grid>
         <Grid Grid.Column="2" Grid.Row="0" Margin="11,0,10,0">
@@ -47,6 +53,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <TextBlock Text="Szerokość geograficzna"></TextBlock>
             <xctk:IntegerUpDown Grid.Row="1" Name="upDownY" Value="0" DefaultValue="0" ClipValueToMinMax="True" Minimum="-500" Maximum="500" />
         </Grid>
 
@@ -55,8 +62,8 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Nazwa" Width="200" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="X" Width="100" DisplayMemberBinding="{Binding CoordX}" />
-                    <GridViewColumn Header="Y" Width="100" DisplayMemberBinding="{Binding CoordY}" />
+                    <GridViewColumn Header="Długość geo." Width="100" DisplayMemberBinding="{Binding CoordX}" />
+                    <GridViewColumn Header="Szerokość geo" Width="100" DisplayMemberBinding="{Binding CoordY}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -36,6 +36,11 @@
                     Background="{StaticResource ButtonBackground}"
                     Foreground="{StaticResource ButtonContent}"
                     BorderThickness="1" BorderBrush="{x:Null}" Width="245" Margin="10,0" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" MinHeight="40"/>
+            <Button x:Name="mapButton" Content="Mapa z punktami"
+                    Click="mapButton_Click"
+                    Background="{StaticResource ButtonBackground}"
+                    Foreground="{StaticResource ButtonContent}"
+                    BorderThickness="1" BorderBrush="{x:Null}" Width="245" Margin="10,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" MinHeight="40"/>
         </Grid>
     </DockPanel>
 </Window>
