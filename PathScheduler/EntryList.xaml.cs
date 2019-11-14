@@ -24,6 +24,8 @@ namespace PathScheduler
         {
             InitializeComponent();
 
+            this.Focus();
+
             this._dataSource = dataSource;
             this.listViewEntries.ItemsSource = this._dataSource.Points;
         }
@@ -121,6 +123,15 @@ namespace PathScheduler
             }
 
             return point;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel == false)
+            {
+                e.Cancel = true;
+            }
+            this.Hide();
         }
     }
 }

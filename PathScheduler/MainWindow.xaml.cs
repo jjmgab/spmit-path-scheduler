@@ -26,6 +26,7 @@ namespace PathScheduler
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             _dataSource = new MockupDataGen(30, -100, -100, 100, 100);
         }
@@ -46,49 +47,9 @@ namespace PathScheduler
             this.IsEnabled = true;
         }
 
-        /// <summary>
-        /// On closeButton click. Closes the window (and the application).
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (this._entryListWindow != null)
-            {
-                this._entryListWindow.Close();
-            }
-            this.Close();
-        }
 
-        /// <summary>
-        /// On upper dockPanel left mouse button press.
-        /// Allows dragging the window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
-
-        /// <summary>
-        /// On maximizeButton click. Maximizes the window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == System.Windows.WindowState.Normal)
-            {
-                this.WindowState = System.Windows.WindowState.Maximized;
-            }
-            else
-            {
-                this.WindowState = System.Windows.WindowState.Normal;
-            }
         }
     }
 }
