@@ -8,6 +8,7 @@ using System;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace PathScheduler
 {
@@ -169,10 +170,14 @@ namespace PathScheduler
 
         private string CreateGeoPointsString(List<GeoData> geoPoints)
         {
+            NumberFormatInfo format = new NumberFormatInfo
+            {
+                NumberDecimalSeparator = "."
+            };
             List<string> geoPointsStrings = new List<string>();
             foreach (var geoPoint in geoPoints)
             {
-                geoPointsStrings.Add(geoPoint.latitude.ToString() + "," + geoPoint.longitude.ToString());
+                geoPointsStrings.Add(geoPoint.latitude.ToString(format) + "," + geoPoint.longitude.ToString(format));
             }
             return string.Join(";", geoPointsStrings);
         }
