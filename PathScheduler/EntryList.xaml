@@ -68,6 +68,17 @@
             </ListView.View>
         </ListView>
 
+        <Grid Grid.Column="1" Margin="11,0,10,0" Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="viewMatrixButton" Content="Wyświetl macierz odległości" Grid.Column="0" Grid.Row="1"
+                    VerticalAlignment="Stretch" Click="viewMatrixButton_Click"
+                Background="{StaticResource ButtonBackground}"
+                Foreground="{StaticResource ButtonContent}" />
+        </Grid>
         <Grid Grid.Column="2" Margin="11,0,10,0" Grid.Row="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>

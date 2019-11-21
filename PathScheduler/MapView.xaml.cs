@@ -2,6 +2,9 @@
 using PathScheduler.Helpers;
 using PathScheduler.Models;
 using Microsoft.Maps.MapControl.WPF;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace PathScheduler
 {
@@ -20,6 +23,7 @@ namespace PathScheduler
             this._dataSource = dataSource;
             InitializeComponent();
             InitPinsFromData();
+            MatrixRequest();
         }
 
         /// <summary>
@@ -30,6 +34,16 @@ namespace PathScheduler
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void MatrixRequest()
+        {
+            string requestURL = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=52.48,17.66;50.51,19.96;50.85,17.05&destinations=52.48,17.66;50.51,19.96;50.85,17.05&travelMode=driving&key=AkCCTWkX8-FpNuz3LXlVFG5yrQBq2R6p2Efl2TXG4vXSBu4k0OxvLwgCjO5G5TZK";
+            WebRequest matrixWebRequest = WebRequest.Create(requestURL);
+            Stream matrixDataStream = matrixWebRequest.GetResponse().GetResponseStream();
+            var dataReader = new StreamReader(matrixDataStream);
+            string matrixResponseString = dataReader.ReadToEnd();
+            DistanceMatrixResponse matrixResponse = JsonConvert.DeserializeObject<DistanceMatrixResponse>(matrixResponseString);
         }
 
         private void InitPinsFromData()

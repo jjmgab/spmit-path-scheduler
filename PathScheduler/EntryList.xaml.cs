@@ -3,6 +3,11 @@ using PathScheduler.Models;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Collections.Generic;
+using System;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace PathScheduler
 {
@@ -16,6 +21,8 @@ namespace PathScheduler
         /// </summary>
         PointDataSource<MapPoint> _dataSource;
         MapView _map;
+        MatrixView _matrixViewWindow;
+        string _apiKey;
 
         /// <summary>
         /// Constructor.
@@ -28,6 +35,7 @@ namespace PathScheduler
             this._map = map;
             this._dataSource = dataSource;
             this.listViewEntries.ItemsSource = this._dataSource.Points;
+            this._apiKey = "AkCCTWkX8-FpNuz3LXlVFG5yrQBq2R6p2Efl2TXG4vXSBu4k0OxvLwgCjO5G5TZK";
         }
 
         /// <summary>
@@ -70,6 +78,17 @@ namespace PathScheduler
 
             // rerender the view
             this.listViewEntries.Items.Refresh();
+        }
+
+        private void viewMatrixButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_matrixViewWindow == null)
+            {
+                _matrixViewWindow = new MatrixView(GetDistanceMatrix(_dataSource.Points), _dataSource.Points);
+            }
+            // this.IsEnabled = false;
+            this._matrixViewWindow.ShowDialog();
+            // this.IsEnabled = true;
         }
 
         /// <summary>
@@ -124,6 +143,51 @@ namespace PathScheduler
             }
 
             return point;
+        }
+
+        private DistanceMatrixResponse GetDistanceMatrix(List<MapPoint> points)
+        {
+            List<GeoData> geoPoints = GetGeoDataFromMapPointsList(points);
+            string geoPointsString = CreateGeoPointsString(geoPoints);
+            string requestUrl = CreateDistanceMatrixRequestUrl(geoPointsString, "driving", _apiKey);
+            WebRequest matrixWebRequest = WebRequest.Create(requestUrl);
+            Stream matrixDataStream = matrixWebRequest.GetResponse().GetResponseStream();
+            var dataReader = new StreamReader(matrixDataStream);
+            string matrixResponseString = dataReader.ReadToEnd();
+            return JsonConvert.DeserializeObject<DistanceMatrixResponse>(matrixResponseString);
+        }
+
+        private List<GeoData> GetGeoDataFromMapPointsList(List<MapPoint> points)
+        {
+            List<GeoData> pointsGeoData = new List<GeoData>();
+            foreach (var point in points)
+            {
+                pointsGeoData.Add(new GeoData(point.CoordX, point.CoordY));
+            }
+            return pointsGeoData;
+        }
+
+        private string CreateGeoPointsString(List<GeoData> geoPoints)
+        {
+            List<string> geoPointsStrings = new List<string>();
+            foreach (var geoPoint in geoPoints)
+            {
+                geoPointsStrings.Add(geoPoint.latitude.ToString() + "," + geoPoint.longitude.ToString());
+            }
+            return string.Join(";", geoPointsStrings);
+        }
+
+        private string CreateDistanceMatrixRequestUrl(string geoPointsString, string travelMode, string apiKey)
+        {
+            return "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix"
+                    + "?origins="
+                    + geoPointsString
+                    + "&destinations="
+                    + geoPointsString
+                    + "&travelMode="
+                    + travelMode
+                    + "&key="
+                    + apiKey;
         }
     }
 }
