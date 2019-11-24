@@ -6,32 +6,29 @@
         xmlns:local="clr-namespace:PathScheduler"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Background="{StaticResource WindowBackground}" WindowStyle="None">
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Height="45" LastChildFill="False" Background="{StaticResource WindowHeader}" MouseDown="DockPanel_MouseDown">
-            <Button x:Name="closeButton" Content="X" Width="25" DockPanel.Dock="Right"
-                    Height="25" Margin="0,0,10,0" Click="CloseButton_Click"
-                    BorderThickness="0" Background="{x:Null}" FontWeight="ExtraBlack"
-                    Foreground="{StaticResource WindowTitle}" FontSize="18"/>
-            <Button x:Name="maximizeButton" Content="□" Width="25" DockPanel.Dock="Right"
-                Height="25" Margin="0,10,10,10"
-                BorderThickness="0" Background="{x:Null}" FontWeight="ExtraBlack"
-                Foreground="{StaticResource WindowTitle}" FontSize="18" Click="MaximizeButton_Click"/>
-        </DockPanel>
-        <Grid DockPanel.Dock="Bottom">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="entryListButton" Content="Lista punktów"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        Background="{StaticResource WindowBackground}" Closing="Window_Closing"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="358*"/>
+            <ColumnDefinition Width="277*"/>
+            <ColumnDefinition Width="Auto" MinWidth="157"/>
+        </Grid.ColumnDefinitions>
+        <ToolBarTray Grid.ColumnSpan="3" Margin="0,0,0,75">
+            <ToolBar x:Name="toolBar" Header="" Margin="0,0,-45,0">
+                <MenuItem Header="Menu">
+                    <Button Content="Lista punktów"/>
+                </MenuItem>
+            </ToolBar>
+        </ToolBarTray>
+        <Button x:Name="entryListButton" Content="Lista punktów"
                     Click="EntryListButton_Click"
                     Background="{StaticResource ButtonBackground}"
                     Foreground="{StaticResource ButtonContent}"
