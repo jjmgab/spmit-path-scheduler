@@ -76,6 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\CredentialsProvider.cs" />
+    <Compile Include="Helpers\DistanceMatrixProvider.cs" />
+    <Compile Include="Helpers\MapDataSource.cs" />
     <Compile Include="MatrixView.xaml.cs">
       <DependentUpon>MatrixView.xaml</DependentUpon>
     </Compile>

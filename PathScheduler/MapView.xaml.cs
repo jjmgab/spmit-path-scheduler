@@ -13,27 +13,11 @@ namespace PathScheduler
     /// </summary>
     public partial class MapView : Window
     {
-        /// <summary>
-        /// Reference to the data source.
-        /// </summary>
-        PointDataSource<MapPoint> _dataSource;
-
-        public MapView(PointDataSource<MapPoint> dataSource)
+        public MapView()
         {
-            this._dataSource = dataSource;
             InitializeComponent();
             InitPinsFromData();
             MatrixRequest();
-        }
-
-        /// <summary>
-        /// On acceptButton click. Hides the window, without destroying it.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AcceptButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
         }
 
         private void MatrixRequest()
@@ -48,19 +32,31 @@ namespace PathScheduler
 
         private void InitPinsFromData()
         {
-            _dataSource?.Points.ForEach(point =>
+            MapDataSource.Points.ForEach(point =>
             {
-                Pushpin pin = new Pushpin();
-                pin.Location = new Location(point.CoordX, point.CoordY);
+                Pushpin pin = new Pushpin
+                {
+                    Location = new Location(point.CoordX, point.CoordY)
+                };
                 this.appMap.Children.Add(pin);
             });
         }
 
         public void AddPin(double lat, double lng)
         {
-            Pushpin pin = new Pushpin();
-            pin.Location = new Location(lat, lng);
+            Pushpin pin = new Pushpin
+            {
+                Location = new Location(lat, lng)
+            };
             this.appMap.Children.Add(pin);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.WindowState = WindowState.Normal;
+                 
+            Hide();
         }
     }
 }

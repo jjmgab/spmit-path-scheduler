@@ -8,44 +8,20 @@
         mc:Ignorable="d"
         Title="MapView" Height="450" Width="800"
         ShowInTaskbar="False"
-        WindowStartupLocation="CenterScreen" WindowStyle="None"
-        Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="86*"/>
+            <ColumnDefinition Width="13*"/>
         </Grid.ColumnDefinitions>
         <m:Map x:Name="appMap"
                    CredentialsProvider="AkCCTWkX8-FpNuz3LXlVFG5yrQBq2R6p2Efl2TXG4vXSBu4k0OxvLwgCjO5G5TZK"
                    Mode="Road"
                    Center="51.9194,19.1451"
-                   ZoomLevel="5.8"/>
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Grid.Row="3" Margin="10,0">
-                <Grid.RowDefinitions>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Grid.Row="0"
-                        MaxHeight="50"
-                        x:Name="acceptButton"
-                        Content="Zamknij"
-                        Click="AcceptButton_Click"
-                        Background="{StaticResource ButtonBackground}"
-                        Foreground="{StaticResource ButtonContent}"/>
-            </Grid>
-        </Grid>
+                   ZoomLevel="5.8" Grid.ColumnSpan="3" Margin="10"/>
     </Grid>
 </Window>

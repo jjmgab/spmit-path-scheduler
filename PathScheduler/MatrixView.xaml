@@ -32,19 +32,13 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="5" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
-            <ItemsControl x:Name="pointsMatrixView" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
-        </ScrollViewer>
         <Grid Grid.Row="5" Margin="10,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="acceptButton" Content="Zamknij" Grid.Column="0" Grid.Row="1"
-                    VerticalAlignment="Stretch" Click="AcceptButton_Click"
-                    Background="{StaticResource ButtonBackground}"
-                    Foreground="{StaticResource ButtonContent}"/>
         </Grid>
+        <DataGrid x:Name="dataGridMatrix" Margin="10" Grid.RowSpan="6" HeadersVisibility="None" SelectionMode="Single" SelectionUnit="Cell" IsReadOnly="True"/>
     </Grid>
 </Window>

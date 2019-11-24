@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PathScheduler.Helpers;
 using PathScheduler.Models;
 
 namespace PathScheduler
@@ -20,54 +22,30 @@ namespace PathScheduler
     /// </summary>
     public partial class MatrixView : Window
     {
-        DistanceMatrixResponse _distanceMatrixResponse;
-        public MatrixView(DistanceMatrixResponse distanceMatrixResponse, List<MapPoint> mapPoints)
+        public MatrixView()
         {
             InitializeComponent();
-            this._distanceMatrixResponse = distanceMatrixResponse;
-            List<List<string>> distanceMatrix = ConvertResponseToMatrix(_distanceMatrixResponse);
-            List<List<string>> distanceMatrixWithNames = AddNamesToDistanceMatrix(distanceMatrix, mapPoints);
-            this.pointsMatrixView.ItemsSource = distanceMatrixWithNames;
-        }
-        private void AcceptButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-        }
 
-        private List<List<string>> ConvertResponseToMatrix(DistanceMatrixResponse matrixResponse)
-        {
-            GeoData[] destinations = matrixResponse.resourceSets[0].resources[0].destinations.ToArray();
-            GeoData[] origins = matrixResponse.resourceSets[0].resources[0].origins.ToArray();
-            MatrixCalculationResult[] results = matrixResponse.resourceSets[0].resources[0].results.ToArray();
-
-            List<List<string>> distanceMatrix = new List<List<string>>();
-
-            int resultsCounter = 0;
-            for (int i = 0; i < destinations.Length; ++i)
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add();
+            foreach (string label in MapDataSource.DistanceMatrix.Labels)
             {
-                List<string> distanceRow = new List<string>();
-                for (int j = 0; j < origins.Length; ++j)
-                {
-                    distanceRow.Add(results[resultsCounter].travelDistance.ToString());
-                    resultsCounter++;
-                }
-                distanceMatrix.Add(distanceRow);
+                dataTable.Columns.Add();
             }
-            return distanceMatrix;
-        }
 
-        private List<List<string>> AddNamesToDistanceMatrix(List<List<string>> distanceMatrix, List<MapPoint> mapPoints)
-        {
-            List<List<string>> distanceMatrixWithNames = new List<List<string>>(distanceMatrix);
-            List<string> firstRow = new List<string>();
-            firstRow.Add("pkt/km");
-            for (int i = 0; i < mapPoints.Count; ++i)
+            dataTable.Rows.Add(new string[] { "" }.Concat(MapDataSource.DistanceMatrix.Labels).ToArray());
+
+            for (int i = 0; i < MapDataSource.Points.Count; i++)
             {
-                firstRow.Add(mapPoints[i].Name);
-                distanceMatrixWithNames[i].Insert(0, mapPoints[i].Name);
+                string[] label = new string[] { MapDataSource.DistanceMatrix.Labels[i] };
+                string[] row = Enumerable.Range(0, MapDataSource.DistanceMatrix.Matrix.GetLength(1))
+                                .Select(x => MapDataSource.DistanceMatrix.Matrix[i, x].ToString())
+                                .ToArray();
+                
+                dataTable.Rows.Add(label.Concat(row).ToArray());
             }
-            distanceMatrixWithNames.Insert(0, firstRow);
-            return distanceMatrixWithNames;
+
+            dataGridMatrix.ItemsSource = dataTable.DefaultView;
         }
-}
+    }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
-        Background="{StaticResource WindowBackground}" Closing="Window_Closing"
+        Background="{StaticResource WindowBackground}"
         >
     <Grid>
         <Grid.RowDefinitions>
@@ -21,23 +21,14 @@
             <ColumnDefinition Width="277*"/>
             <ColumnDefinition Width="Auto" MinWidth="157"/>
         </Grid.ColumnDefinitions>
-        <ToolBarTray Grid.ColumnSpan="3" Margin="0,0,0,75">
-            <ToolBar x:Name="toolBar" Header="" Margin="0,0,-45,0">
-                <MenuItem Header="Menu">
-                    <Button Content="Lista punktów"/>
-                </MenuItem>
-            </ToolBar>
-        </ToolBarTray>
-        <Button x:Name="entryListButton" Content="Lista punktów"
-                    Click="EntryListButton_Click"
-                    Background="{StaticResource ButtonBackground}"
-                    Foreground="{StaticResource ButtonContent}"
-                    BorderThickness="1" BorderBrush="{x:Null}" Width="245" Margin="10,0" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" MinHeight="40"/>
-            <Button x:Name="mapButton" Content="Mapa z punktami"
-                    Click="mapButton_Click"
-                    Background="{StaticResource ButtonBackground}"
-                    Foreground="{StaticResource ButtonContent}"
-                    BorderThickness="1" BorderBrush="{x:Null}" Width="245" Margin="10,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" MinHeight="40"/>
-        </Grid>
-    </DockPanel>
+
+        <Menu DockPanel.Dock="Top" Grid.ColumnSpan="3" Margin="0,0,0,75" VerticalContentAlignment="Center">
+            <MenuItem Header="_Menu" Height="30" Width="50">
+                <MenuItem Header="_Lista punktów" Name="menuItemPointList" Click="MenuItemPointList_Click"/>
+                <MenuItem Header="_Mapa" Name="menuItemMapView" Click="MenuItemMapView_Click"/>
+                <Separator />
+                <MenuItem Header="_Wyjście" Name="menuItemExit" Click="MenuItemExit_Click"/>
+            </MenuItem>
+        </Menu>
+    </Grid>
 </Window>
