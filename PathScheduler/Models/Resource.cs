@@ -9,6 +9,11 @@ namespace PathScheduler
     public class Resource
     {
         public string __type { get; set; }
+        public List<Double> bbox { get; set; }
+        public string id { get; set; }
+        public string distanceUnit { get; set; }
+        public string durationUnit { get; set; }
+        public RoutePath routePath { get; set; }
         public List<GeoData> destinations { get; set; }
         public string errorMessage { get; set; }
         public List<GeoData> origins { get; set; }
