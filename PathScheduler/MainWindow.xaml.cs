@@ -31,6 +31,11 @@ namespace PathScheduler
             MapDataSource.MapViewWindow.Show();
         }
 
+        private void MenuItemSolutionCalculator_Click(object sender, RoutedEventArgs e)
+        {
+            MapDataSource.SA_AlgorithmWindow.Show();
+        }
+
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

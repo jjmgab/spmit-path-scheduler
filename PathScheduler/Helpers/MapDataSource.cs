@@ -40,6 +40,15 @@ namespace PathScheduler.Helpers
             }
         }
 
+        private static SA_Algorithm _saAlgorithm;
+        public static SA_Algorithm SA_AlgorithmWindow
+        {
+            get
+            {
+                PedanticCheck();
+                return _saAlgorithm;
+            }
+        }
         public abstract class DistanceMatrix
         {
             private static DistanceMatrixResponse _distanceMatrixResponse;
@@ -61,6 +70,16 @@ namespace PathScheduler.Helpers
                 }
             }
 
+            private static GeoData[] _geoPoints;
+            public static GeoData[] GeoPoints
+            {
+                get
+                {
+                    PedanticCheck();
+                    return _geoPoints;
+                }
+            }
+
             private static string[] _labels;
             public static string[] Labels
             {
@@ -74,6 +93,7 @@ namespace PathScheduler.Helpers
             private static double[,] ConvertResponseToMatrix(DistanceMatrixResponse matrixResponse)
             {
                 GeoData[] destinations = matrixResponse.resourceSets[0].resources[0].destinations.ToArray();
+                _geoPoints = destinations;
                 GeoData[] origins = matrixResponse.resourceSets[0].resources[0].origins.ToArray();
                 MatrixCalculationResult[] results = matrixResponse.resourceSets[0].resources[0].results.ToArray();
 
@@ -117,6 +137,7 @@ namespace PathScheduler.Helpers
 
             _entryList = new EntryList();
             _mapView = new MapView();
+            _saAlgorithm = new SA_Algorithm();
         }
 
         public static bool AddPoint(MapPoint point)

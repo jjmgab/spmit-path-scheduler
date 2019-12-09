@@ -26,6 +26,7 @@
             <MenuItem Header="_Menu" Height="30" Width="50">
                 <MenuItem Header="_Lista punktów" Name="menuItemPointList" Click="MenuItemPointList_Click"/>
                 <MenuItem Header="_Mapa" Name="menuItemMapView" Click="MenuItemMapView_Click"/>
+                <MenuItem Header="_Kalkulator ścieżki" Name="menuItemSolutionCalculator" Click="MenuItemSolutionCalculator_Click"/>
                 <Separator />
                 <MenuItem Header="_Wyjście" Name="menuItemExit" Click="MenuItemExit_Click"/>
             </MenuItem>

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using PathScheduler.Helpers;
 using PathScheduler.Models;
 using Microsoft.Maps.MapControl.WPF;
@@ -19,30 +20,13 @@ namespace PathScheduler
         {
             InitializeComponent();
             InitPinsFromData();
-            // MatrixRequest();
-            RouteRequest();
         }
 
-        //private void MatrixRequest()
-        //{
-        //    string requestURL = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=52.48,17.66;50.51,19.96;50.85,17.05&destinations=52.48,17.66;50.51,19.96;50.85,17.05&travelMode=driving&key=AkCCTWkX8-FpNuz3LXlVFG5yrQBq2R6p2Efl2TXG4vXSBu4k0OxvLwgCjO5G5TZK";
-        //    WebRequest matrixWebRequest = WebRequest.Create(requestURL);
-        //    Stream matrixDataStream = matrixWebRequest.GetResponse().GetResponseStream();
-        //    var dataReader = new StreamReader(matrixDataStream);
-        //    string matrixResponseString = dataReader.ReadToEnd();
-        //    DistanceMatrixResponse matrixResponse = JsonConvert.DeserializeObject<DistanceMatrixResponse>(matrixResponseString);
-        //}
-
-        private void RouteRequest()
+        public void drawRouteForLocation(double lat1, double lng1, double lat2, double lng2, Color color)
         {
-            string l1 = MapDataSource.Points[0].CoordX.ToString() + "," + MapDataSource.Points[0].CoordY.ToString();
-            string l2 = MapDataSource.Points[1].CoordX.ToString() + "," + MapDataSource.Points[1].CoordY.ToString();
+            string requestUrl = routeRequestUrl(lat1, lng1, lat2, lng2);
 
-            // 52.48,17.66
-            // 50.51,19.96
-
-            string requestURL = "http://dev.virtualearth.net/REST/v1/Routes/Driving?wayPoint.1=" + l1 + "&waypoint.2=" + l2 + "&optimize=distance&routeAttributes=routePath&routePathOutput=Points&key=AkCCTWkX8-FpNuz3LXlVFG5yrQBq2R6p2Efl2TXG4vXSBu4k0OxvLwgCjO5G5TZK";
-            WebRequest routeWebRequest = WebRequest.Create(requestURL);
+            WebRequest routeWebRequest = WebRequest.Create(requestUrl);
             Stream routeDataStream = routeWebRequest.GetResponse().GetResponseStream();
             var dataReader = new StreamReader(routeDataStream);
             string routeResponseString = dataReader.ReadToEnd();
@@ -62,12 +46,37 @@ namespace PathScheduler
             MapPolyline routeLine = new MapPolyline()
             {
                 Locations = locs,
-                Stroke = new SolidColorBrush(Colors.Blue),
+                Stroke = new SolidColorBrush(color),
                 StrokeThickness = 5
             };
 
             appMap.Children.Add(routeLine);
             // appMap.SetView(locs, new Thickness(30), 0);
+        }
+
+        public void clearRoutes()
+        {
+            UIElement component = null;
+            for (int i = appMap.Children.Count - 1; i >= 0; i--)
+            {
+                component = appMap.Children[i];
+                if (component.GetType() == typeof(MapPolyline))
+                {
+                    appMap.Children.Remove(component);
+                }
+            }
+        }
+
+        private string routeRequestUrl(double lat1, double lng1, double lat2, double lng2)
+        {
+            string loc1 = lat1.ToString() + "," + lng1.ToString();
+            string loc2 = lat2.ToString() + "," + lng2.ToString();
+            return "http://dev.virtualearth.net/REST/v1/Routes/Driving?"
+                    + "wayPoint.1="
+                    + loc1
+                    + "&waypoint.2="
+                    + loc2
+                    + "&optimize=distance&routeAttributes=routePath&routePathOutput=Points&key=AkCCTWkX8-FpNuz3LXlVFG5yrQBq2R6p2Efl2TXG4vXSBu4k0OxvLwgCjO5G5TZK";
         }
 
         private void InitPinsFromData()
