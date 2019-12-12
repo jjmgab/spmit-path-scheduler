@@ -21,7 +21,7 @@ namespace PathScheduler.Models
             }
         }
 
-        public SA_Solution(int distanceMatrixLength, Boolean generateRandomPath)
+        public SA_Solution(int distanceMatrixLength, Boolean generateRandomPath, Random random)
         {
             if (distanceMatrixLength < 2)
             {
@@ -37,7 +37,7 @@ namespace PathScheduler.Models
 
                 if (generateRandomPath)
                 {
-                    Shuffle();
+                    Shuffle(random);
                 }
             } 
         }
@@ -63,9 +63,8 @@ namespace PathScheduler.Models
             }
         }
 
-        private void Shuffle()
+        private void Shuffle(Random random)
         {
-            Random random = new Random();
             int n = _pathForMatrix.Count();
             while (n > 1)
             {
@@ -77,9 +76,8 @@ namespace PathScheduler.Models
             }
         }
 
-        public SA_Solution createNewSolutionWithSwappedTwoElements()
+        public SA_Solution createNewSolutionWithSwappedTwoElements(Random random)
         {
-            Random random = new Random();
             int el1 = random.Next(_pathForMatrix.Count());
             int el2;
             do

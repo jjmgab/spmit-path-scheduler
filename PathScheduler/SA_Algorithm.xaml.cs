@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using PathScheduler.Models;
 using PathScheduler.Helpers;
 using Syncfusion.Windows.Shared;
+using System.IO;
 
 namespace PathScheduler
 {
@@ -24,9 +25,25 @@ namespace PathScheduler
     {
         private double[,] _distanceMatrix;
         SA_Solution _solution;
+        StreamWriter loggerFile;
         public SA_Algorithm()
         {
             this._distanceMatrix = MapDataSource.DistanceMatrix.Matrix;
+
+            try
+            {
+                if (File.Exists(@"logs.txt"))
+                {
+                    File.Delete(@"logs.txt");
+                    Console.WriteLine("File deleted.");
+                }
+                else Console.WriteLine("File not found");
+            }
+            catch (IOException ioExp)
+            {
+                Console.WriteLine(ioExp.Message);
+            }
+            this.loggerFile = new StreamWriter(@"logs.txt");
             InitializeComponent();
         }
 
@@ -73,7 +90,7 @@ namespace PathScheduler
         {
             Random random = new Random();
 
-            SA_Solution initSolution = new SA_Solution(_distanceMatrix.GetLength(0), true);
+            SA_Solution initSolution = new SA_Solution(_distanceMatrix.GetLength(0), true, random);
             SA_Solution oldSolution = initSolution;
             SA_Solution bestSolution = new SA_Solution(initSolution.getCopyOfPath());
 
@@ -85,9 +102,12 @@ namespace PathScheduler
 
             while (repetitionsWithoutImprovement < maxRepetitionsWithoutImprovement)
             {
-                SA_Solution newSolution = oldSolution.createNewSolutionWithSwappedTwoElements();
+                SA_Solution newSolution = oldSolution.createNewSolutionWithSwappedTwoElements(random);
                 oldResult = oldSolution.objectiveFunction(_distanceMatrix);
                 newResult = newSolution.objectiveFunction(_distanceMatrix);
+
+                logger(loggerFile, oldSolution.getCopyOfPath(), newSolution.getCopyOfPath(), oldResult, newResult);
+
                 if (newResult < bestSolution.objectiveFunction(_distanceMatrix))
                 {
                     bestSolution = newSolution;
@@ -110,6 +130,20 @@ namespace PathScheduler
                 temp *= tempDecreasingCoefficient;
             }
             return bestSolution;
+        }
+
+        private void logger (System.IO.StreamWriter file, List<int> oldSolutionP, List<int> newSolutionP, double oldResult, double newResult)
+        {
+            string oldSolutionPath = "";
+            string newSolutionPath = "";
+
+            for (int i = 0; i < oldSolutionP.Count(); ++i)
+            {
+                oldSolutionPath += oldSolutionP[i].ToString() + ">";
+                newSolutionPath += newSolutionP[i].ToString() + ">";
+            }
+
+            file.WriteLine("OLD: " + oldSolutionPath + "(" + oldResult.ToString() + " km)" + "\nNEW: " + newSolutionPath + "(" + newResult.ToString() + " km)\n\n");
         }
 
         private double functionP(double oldResult, double newResult, double? temp)
