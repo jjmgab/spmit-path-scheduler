@@ -49,6 +49,8 @@ namespace PathScheduler
 
         private void confirmCalulation_Click(object sender, RoutedEventArgs e)
         {
+            this._distanceMatrix = MapDataSource.DistanceMatrix.Matrix;
+
             if (tempValue.Value != null && maxIterationsValue.Value != null && tempDecresasingValue.Value != null && algorithmRepetitionValue.Value != null)
             {
                 double? initTemp = tempValue.Value;
