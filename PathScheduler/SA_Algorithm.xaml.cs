@@ -189,5 +189,13 @@ namespace PathScheduler
             }
             return pathColor;
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.WindowState = WindowState.Normal;
+
+            Hide();
+        }
     }
 }

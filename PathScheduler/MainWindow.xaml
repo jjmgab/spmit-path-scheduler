@@ -5,24 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PathScheduler"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Path Scheduler" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
         Background="{StaticResource WindowBackground}"
         >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="200"/>
+
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="358*"/>
-            <ColumnDefinition Width="277*"/>
-            <ColumnDefinition Width="Auto" MinWidth="157"/>
         </Grid.ColumnDefinitions>
-
-        <Menu DockPanel.Dock="Top" Grid.ColumnSpan="3" Margin="0,0,0,75" VerticalContentAlignment="Center">
+        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="80" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Path Scheduler"></TextBlock>
+        <Menu Grid.Row="0" DockPanel.Dock="Top" Grid.ColumnSpan="3" Margin="0,0,0,75" VerticalContentAlignment="Center">
             <MenuItem Header="_Menu" Height="30" Width="50">
                 <MenuItem Header="_Lista punktów" Name="menuItemPointList" Click="MenuItemPointList_Click"/>
                 <MenuItem Header="_Mapa" Name="menuItemMapView" Click="MenuItemMapView_Click"/>

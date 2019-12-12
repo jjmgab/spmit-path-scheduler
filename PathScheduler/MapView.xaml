@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PathScheduler"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         mc:Ignorable="d"
-        Title="MapView" Height="450" Width="800"
+        Title="Mapa" Height="450" Width="800"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" Closing="Window_Closing">

@@ -7,7 +7,8 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="SA_Algorithm" Height="450" Width="800">
+        Title="Algorytm symulowanego wyżarzania" Height="450" Width="800"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
