@@ -64,7 +64,9 @@
                 WatermarkText="Współczynnik zmiany temperatury (polecany 0.85 - 0.95)"
                 WatermarkTextIsVisible="True"
                 MinValue="0"
-                MaxValue="1"/>
+                MaxValue="1"
+                NumberDecimalDigits="2"
+                MaximumNumberDecimalDigits="6"/>
             <syncfusion:IntegerTextBox
                 x:Name="algorithmRepetitionValue"
                 Height="25"

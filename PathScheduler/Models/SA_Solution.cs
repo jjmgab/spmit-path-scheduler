@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PathScheduler.Models
 {
     class SA_Solution
     {
         private List<int> _pathForMatrix;
+        public List<int> Permutation => _pathForMatrix;
 
         public SA_Solution(List<int> pathForMatrix)
         {
@@ -37,16 +36,12 @@ namespace PathScheduler.Models
 
                 if (generateRandomPath)
                 {
-                    Shuffle(random);
+                    ShufflePermutation(random);
                 }
             } 
         }
 
-        public List<int> getCopyOfPath()
-        {
-            return new List<int>(_pathForMatrix);
-        }
-        public double objectiveFunction(double[,] distanceMatrix)
+        public double FunctionValue(double[,] distanceMatrix)
         {
             if (_pathForMatrix.Count() != distanceMatrix.GetLength(0))
             {
@@ -63,7 +58,7 @@ namespace PathScheduler.Models
             }
         }
 
-        private void Shuffle(Random random)
+        private void ShufflePermutation(Random random)
         {
             int n = _pathForMatrix.Count();
             while (n > 1)
@@ -76,7 +71,7 @@ namespace PathScheduler.Models
             }
         }
 
-        public SA_Solution createNewSolutionWithSwappedTwoElements(Random random)
+        public SA_Solution CreateNewSolutionWithSwappedTwoElements(Random random)
         {
             int el1 = random.Next(_pathForMatrix.Count());
             int el2;
@@ -90,6 +85,11 @@ namespace PathScheduler.Models
             newPath[el2] = tmp;
 
             return new SA_Solution(newPath);
+        }
+
+        public List<int> Clone()
+        {
+            return new List<int>(_pathForMatrix);
         }
     }
 }

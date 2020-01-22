@@ -33,7 +33,7 @@ namespace PathScheduler
             RouteResponse routeResponse = JsonConvert.DeserializeObject<RouteResponse>(routeResponseString);
 
             LocationCollection locs = new LocationCollection(); ;
-            List<List<double>> coords = routeResponse.resourceSets[0].resources[0].routePath.line.coordinates;
+            List<List<double>> coords = routeResponse.resourceSets[0].resources[0].routePath.Line.coordinates;
 
             for (int i = 0; i < coords.Count; i++)
             {
