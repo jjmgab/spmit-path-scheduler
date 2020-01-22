@@ -1,0 +1,87 @@
+﻿<Window x:Class="PathScheduler.SA_Algorithm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PathScheduler"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Algorytm symulowanego wyżarzania" Height="450" Width="800"
+        Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Rozwiązanie: "></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="resultView" Text="-"></TextBlock>
+        <Button x:Name="viewMatrixButton" Content="Oblicz ścieżkę" Grid.Column="0" Grid.Row="1"
+                VerticalAlignment="Stretch" Click="confirmCalulation_Click"
+                Margin="30"
+                Background="{StaticResource ButtonBackground}"
+                Foreground="{StaticResource ButtonContent}" />
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <syncfusion:DoubleTextBox
+                x:Name="tempValue"
+                Height="25"
+                Grid.Row="0"
+                Width="300"
+                Value="{x:Null}"
+                UseNullOption="True"
+                WatermarkText="Temperatura początkowa"
+                WatermarkTextIsVisible="True"
+                MinValue="0"/>
+            <syncfusion:IntegerTextBox
+                x:Name="maxIterationsValue"
+                Height="25"
+                Grid.Row="1"
+                Width="300"
+                Value="{x:Null}"
+                UseNullOption="True"
+                WatermarkText="Maksymalna ilość iteracji bez polepszenia"
+                WatermarkTextIsVisible="True"
+                MinValue="1"/>
+            <syncfusion:DoubleTextBox
+                x:Name="tempDecresasingValue"
+                Height="25"
+                Grid.Row="2"
+                Width="300"
+                Value="{x:Null}"
+                UseNullOption="True"
+                WatermarkText="Współczynnik zmiany temperatury (polecany 0.85 - 0.95)"
+                WatermarkTextIsVisible="True"
+                MinValue="0"
+                MaxValue="1"
+                NumberDecimalDigits="2"
+                MaximumNumberDecimalDigits="6"/>
+            <syncfusion:IntegerTextBox
+                x:Name="algorithmRepetitionValue"
+                Height="25"
+                Grid.Row="3"
+                Width="300"
+                Value="{x:Null}"
+                UseNullOption="True"
+                WatermarkText="Ilość ponowień algorytmu"
+                WatermarkTextIsVisible="True"
+                MinValue="1"/>
+        </Grid>
+        <Button x:Name="viewMapButton" Content="Wyświetl mapę dla rozwiązania" Grid.Column="0" Grid.Row="2"
+                VerticalAlignment="Stretch" Click="viewMapForSolution_Click"
+                Margin="30" IsEnabled="false"
+                Background="{StaticResource ButtonBackground}"
+                Foreground="{StaticResource ButtonContent}" />
+    </Grid>
+</Window>

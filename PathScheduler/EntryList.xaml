@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PathScheduler"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="EntryList" Height="450" Width="800"
+        Title="Lista punktów" Height="450" Width="800"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource ResourceKey=WindowBackground}" ShowActivated="False" IsVisibleChanged="Window_IsVisibleChanged" ResizeMode="CanResizeWithGrip" WindowStyle="ToolWindow" Closing="Window_Closing">
